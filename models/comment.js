@@ -14,7 +14,7 @@ function validateComment(comment){
 }
 
 
-const Comment = mongoose.model('Commment', commentSchema);
+const Comment = mongoose.model('Comment', commentSchema);
 
 module.exports = {
     Comment,

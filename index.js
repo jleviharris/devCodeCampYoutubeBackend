@@ -1,11 +1,8 @@
-// require("dotenv").config();
 require("dotenv").config();
 const connectDb = require("./startup/db");
 const express = require("express");
 const cors = require("cors");
 const {google} = require("googleapis");
-// const Joi = require("joi");
-
 const comments = require("./routes/comments")
 const app = express();
 const apikey = "AIzaSyDAXtEJIM9IO2wD89wXhcRxmu72ryJGk2I";
