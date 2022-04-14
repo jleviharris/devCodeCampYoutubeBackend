@@ -1,75 +1,75 @@
-const {Product, validateProduct} = require("../models/product");
+const {Comment, validateComment} = require("../models/comment");
 const express = require("express");
 const router = express.Router();
 
-// GET all products
-// http://localhost:3007/api/products
+// GET all comments
+// http://localhost:3007/api/comments
 router.get("/", async (req, res) => {
     try {
-        let products = await Product.find();
-        if (!products) return res.status(400).send(`No products in this collection!`);
-        return res.status(200).send(products);
+        let comments = await Comment.find();
+        if (!comments) return res.status(400).send(`No comments in this collection!`);
+        return res.status(200).send(comments);
     } catch (error) {
         return res.status(500).send(`Internal Server Error: ${error}`);
     }
 });
 
-//GET a product by id
-// http://localhost:3007/api/products/:productId
-router.get("/:productId", async (req,res) => {
+//GET a comment by id
+// http://localhost:3007/api/comments/:commentId
+router.get("/:commentId", async (req,res) => {
     try {
-        let product = await Product.findById(req.params.productId)
-        if (!product)
-            return res.status(400).send(`Product with Id of ${req.params.productId} does not exist!`);
-        return res.status(200).send(product);
+        let comment = await Comment.findById(req.params.commentId)
+        if (!comment)
+            return res.status(400).send(`Comment with Id of ${req.params.commentId} does not exist!`);
+        return res.status(200).send(comment);
     } catch (error) {
         return res.status(500).send(`Internal Server Error: ${error}`);
     }
 })
 
-//POST a new product
-// http://localhost:3007/api/products
+//POST a new comment
+// http://localhost:3007/api/comments
 
 router.post("/", async (req, res) => {
     try {
-        const {error} = validateProduct(req.body)
+        const {error} = validateComment(req.body)
         if (error) return res.status(400).send(error);
        
-        let newProduct = await new Product(req.body)
-        await newProduct.save()
+        let newComment = await new Comment(req.body)
+        await newComment.save()
         
-        return res.status(201).send(newProduct)
+        return res.status(201).send(newComment)
     } catch (error) {
         return res.status(500).send(`Internal Server Error: ${error}`);
     }
 });
 
-//PUT an existing product
-// http://localhost:3007/api/products/:productId
-router.put("/:productId", async (req,res) => {
+//PUT an existing comment
+// http://localhost:3007/api/comments/:commentId
+router.put("/:commentId", async (req,res) => {
     try {
-        const {error} = validateProduct(req.body)
+        const {error} = validateComment(req.body)
         if (error) return res.status(400).send(error);
 
-        let product = await Product.findByIdAndUpdate(req.params.productId, req.body, {new: true});
-        if (!product)
-        return res.status(400).send(`Product with Id of ${req.params.productId} does not exist!`);
+        let comment = await Comment.findByIdAndUpdate(req.params.commentId, req.body, {new: true});
+        if (!comment)
+        return res.status(400).send(`Comment with Id of ${req.params.commentId} does not exist!`);
 
-        return res.send(product);
+        return res.send(comment);
     } catch (error) {
         return res.status(500).send(`Internal Server Error: ${error}`);
     }
 })
 
 
-//DELETE an existing product
-// http://localhost:3007/api/products/:productId
-router.delete("/:productId", async (req, res) => {
+//DELETE an existing comment
+// http://localhost:3007/api/comments/:commentId
+router.delete("/:commentId", async (req, res) => {
     try {
-        let product = await Product.findByIdAndDelete(req.params.productId);
-        if (!product)
-            return res.status(400).send(`Product with Id of ${req.params.productId} does not exist!`);
-        return res.status(200).send(product);
+        let comment = await Comment.findByIdAndDelete(req.params.commentId);
+        if (!comment)
+            return res.status(400).send(`Comment with Id of ${req.params.commentId} does not exist!`);
+        return res.status(200).send(comment);
     } catch (error) {
         return res.status(500).send(`Internal Server Error: ${error}`);   
     }
