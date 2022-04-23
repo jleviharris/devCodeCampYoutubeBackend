@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const comments = require("./routes/comments")
 const replies = require("./routes/replies")
+const videos = require("./routes/videos")
 const app = express();
 
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/comments", comments);
 app.use("/api/replies", replies);
+app.use("/api/videos", videos);
 
 
 
